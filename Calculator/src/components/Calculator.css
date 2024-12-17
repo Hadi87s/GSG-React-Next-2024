@@ -1,0 +1,22 @@
+
+.container{
+transform: scale(1.8);
+}
+
+.buttonArea{
+    display: grid;
+    margin-top: 15px;
+    grid-template-columns: 50px 50px 50px;
+    gap: 10px;
+}
+.buttonArea button {
+    background-color: #3c64b1;
+}
+.buttonArea .plus, .buttonArea .minus{
+    background-color: #f2994a;
+}
+.buttonArea .equal{
+    grid-column: span 3;
+    background-color: #27ae60;
+}
+
