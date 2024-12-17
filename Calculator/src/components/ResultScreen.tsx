@@ -21,11 +21,14 @@ function ResultScreen(props: IResult) {
         color: "#373f41",
         fontWeight: "bold",
         fontSize: "20px",
+        overflow: "auto",
       }}
     >
       {props.firstNumber === 0 ? "" : props.firstNumber} {props.operator}{" "}
       {props.secondNumber === 0 ? "" : props.secondNumber} {props.equality}{" "}
-      {props.sum === 0 ? "" : props.sum}
+      <span style={{ color: "#36acca" }}>
+        {props.sum === 0 ? "" : props.sum}
+      </span>
     </div>
   );
 }
