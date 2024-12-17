@@ -16,14 +16,16 @@ function ResultScreen(props: IResult) {
         backgroundColor: "#f4f6fb",
         borderRadius: "6px",
         width: "120px",
+        height: "30px",
         border: "1px solid #36acca",
         color: "#373f41",
         fontWeight: "bold",
         fontSize: "20px",
       }}
     >
-      {props.firstNumber} {props.operator} {props.secondNumber} {props.equality}{" "}
-      {props.sum}
+      {props.firstNumber === 0 ? "" : props.firstNumber} {props.operator}{" "}
+      {props.secondNumber === 0 ? "" : props.secondNumber} {props.equality}{" "}
+      {props.sum === 0 ? "" : props.sum}
     </div>
   );
 }

@@ -48,6 +48,8 @@ function Calculator() {
         sum = 0;
         sendFirstNumber(0);
         sendSecondNumber(0);
+        sendOperation("");
+        sendEquality("");
         setResult(0);
       }
       if (checker) {
