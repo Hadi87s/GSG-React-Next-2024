@@ -9,7 +9,6 @@ let checker: boolean = true; // true === firstNumber, false === SecondNumber
 let operate = true; // true === addition, false === subtraction
 let equalPressed = false; // true === = is pressed, false === = is not pressed yet
 function Calculator() {
-  //
   const [result, setResult] = useState<number | string>(sum);
   const [firstNumber, sendFirstNumber] = useState<number>(0);
   const [operation, sendOperation] = useState<string>("");
