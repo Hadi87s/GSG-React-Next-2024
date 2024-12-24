@@ -14,7 +14,27 @@
     border-radius: 6px;
     color: #232323;
     padding: 0.2em 1.2em;
-    width: 5vw;
+    width: 17%;
+    border: 2px solid #d3d3d3;
+    font-weight: bold;
+    box-shadow: 1px 1px 17px -9px #f3f3f3;
+    transition: all 200ms ease-in-out;
+
+}
+
+.tasks div:hover {
+    box-shadow: 1px 1px 17px -4px #f3f3f3;
+    transform: translateY(-2px);
+}
+.tasks .createdTasks{
+    color: rgb(22, 9, 168);
+}
+
+.tasks .completedTasks {
+    color: rgb(9, 168, 9);
+}
+.tasks .UrgentTasks {
+    color: rgb(199, 129, 16);
 }
 .tasks div h4,p{
     margin: 0;

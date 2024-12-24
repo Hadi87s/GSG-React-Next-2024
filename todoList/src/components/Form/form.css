@@ -29,7 +29,6 @@
 }
 
 .todo-form form input[type="submit"]:hover {
-    transform: scale(1.04);
     box-shadow: 0 0 29px -5px #39d08b;
 }
 

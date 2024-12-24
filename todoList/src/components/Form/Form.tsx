@@ -6,6 +6,7 @@ interface IProps {
 }
 
 function Form(props: IProps) {
+  const [urgent, setUrgent] = useState<boolean>(false);
   return (
     <div className="todo-form">
       {" "}
@@ -13,17 +14,22 @@ function Form(props: IProps) {
         action=""
         onSubmit={(e) => {
           e.preventDefault();
-          props.onFormSubmit(
-            e.currentTarget["todo-input"].value,
-            e.currentTarget["urgent"].checked
-          );
+          props.onFormSubmit(e.currentTarget["todo-input"].value, urgent);
         }}
       >
         <input type="text" placeholder="Type Todo here..." name="todo-input" />
         <input type="submit" value={"Add Todo"} />
         <div>
           <label className="checkbox-wrapper">
-            <input type="checkbox" name="urgent" id="urgent" />
+            <input
+              type="checkbox"
+              name="urgent"
+              id="urgent"
+              onChange={() => {
+                setUrgent(!urgent);
+                console.log(urgent);
+              }}
+            />
             <div className="checkmark">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path

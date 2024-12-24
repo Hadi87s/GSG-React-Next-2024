@@ -5,7 +5,9 @@ interface IProps {
   index: number;
   task: string;
   onTrashClick: (key: number) => void;
+  onCheckClick: (value: number) => void;
 }
+let checked = true;
 
 function Item(props: IProps) {
   return (
@@ -18,6 +20,9 @@ function Item(props: IProps) {
             e.currentTarget.parentElement?.nextElementSibling?.classList.toggle(
               "checked"
             );
+            e.currentTarget.checked
+              ? props.onCheckClick(+1)
+              : props.onCheckClick(-1);
           }}
         />
         <span className="custom-checkbox"></span>

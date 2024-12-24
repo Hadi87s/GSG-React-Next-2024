@@ -4,10 +4,15 @@ import "./alltodo.css";
 interface IProps {
   tasks: string[];
   onTrashClick: (key: number) => void;
+  onCheckClick: (value: number) => void;
 }
 function AllTodo(props: IProps) {
   const handleTaskRemoval = (key: number) => {
     props.onTrashClick(key);
+  };
+
+  const handleTaskCompletion = (value: number) => {
+    props.onCheckClick(value);
   };
 
   return (
@@ -19,12 +24,11 @@ function AllTodo(props: IProps) {
             key={index}
             task={task}
             onTrashClick={handleTaskRemoval}
+            onCheckClick={handleTaskCompletion}
           />
         ))
       ) : (
-        <div style={{ color: "#dd4521", fontWeight: "500" }}>
-          No tasks available
-        </div>
+        <div className="noTasks">No tasks available</div>
       )}
     </div>
   );

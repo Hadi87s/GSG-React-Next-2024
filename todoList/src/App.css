@@ -46,3 +46,9 @@
 .read-the-docs {
   color: #888;
 }
+
+.time {
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 24px;
+}

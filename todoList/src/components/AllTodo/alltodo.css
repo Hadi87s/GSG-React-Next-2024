@@ -5,3 +5,14 @@
     justify-content: center;
     width: 50vw;
 }
+
+.allItems .noTasks {
+    color: #ff0000;
+    font-weight: 500;
+    text-shadow: 0px 0px 22px #ff00007d;
+    transition: all 200ms ease;
+    cursor:default;
+}
+.allItems .noTasks:hover {
+    text-shadow: 0px 0px 22px #ff0000;
+}

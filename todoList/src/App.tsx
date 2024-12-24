@@ -8,7 +8,7 @@ function App() {
   const [tasks, addTask] = useState<string[]>([]);
   const [urgentTask, setUrgent] = useState<number>(0);
   const [urgentCount, setUrgentCount] = useState<number>(0);
-
+  const [complete, setComplete] = useState<number>(0);
   const handleFormSubmit = (todoValue: string, urgent: boolean) => {
     if (urgent) {
       setUrgent(urgentTask + 1);
@@ -20,6 +20,7 @@ function App() {
   };
 
   const handleItemRemoval = (key: number) => {
+    setComplete(complete - 1);
     let newTasksList = tasks.filter((_, index) => index != key);
     if (urgentCount > 0) {
       setUrgent(urgentTask - 1);
@@ -28,11 +29,31 @@ function App() {
     addTask(newTasksList);
   };
 
+  const handleCheckClick = (value: number) => {
+    setComplete(complete + value);
+  };
+
+  const dateString = new Date().toString();
+  const parts = dateString.split(" ");
+  const day = parts[0];
+  const date = parts[2];
+  const month = parts[1];
+
+  const formattedDate = `${day}, ${date} ${month}`;
   return (
     <div className="container">
+      <div className="time"> {formattedDate}</div>
       <Form onFormSubmit={handleFormSubmit}></Form>
-      <Data taskCount={tasks.length} urgent={urgentTask}></Data>
-      <AllToDo tasks={tasks} onTrashClick={handleItemRemoval} />
+      <Data
+        taskCount={tasks.length}
+        urgent={urgentTask}
+        complete={complete}
+      ></Data>
+      <AllToDo
+        tasks={tasks}
+        onTrashClick={handleItemRemoval}
+        onCheckClick={handleCheckClick}
+      />
     </div>
   );
 }

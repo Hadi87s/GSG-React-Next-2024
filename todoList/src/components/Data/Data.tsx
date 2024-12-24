@@ -2,6 +2,7 @@ import "./data.css";
 interface IData {
   taskCount: number;
   urgent: number;
+  complete: number;
 }
 function Data(props: IData) {
   console.log(props.taskCount);
@@ -13,7 +14,7 @@ function Data(props: IData) {
         <p>Created</p>
       </div>
       <div className="completedTasks">
-        <h4>0</h4>
+        <h4>{props.complete}</h4>
         <p>Completed</p>
       </div>
       <div className="UrgentTasks">
