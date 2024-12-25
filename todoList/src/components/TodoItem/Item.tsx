@@ -7,7 +7,6 @@ interface IProps {
   onTrashClick: (key: number) => void;
   onCheckClick: (value: number) => void;
 }
-let checked = true;
 
 function Item(props: IProps) {
   return (

@@ -20,7 +20,7 @@ function App() {
   };
 
   const handleItemRemoval = (key: number) => {
-    setComplete(complete - 1);
+    complete > 0 ? setComplete(complete - 1) : null;
     let newTasksList = tasks.filter((_, index) => index != key);
     if (urgentCount > 0) {
       setUrgent(urgentTask - 1);
