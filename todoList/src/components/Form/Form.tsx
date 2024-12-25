@@ -9,9 +9,18 @@ interface IProps {
   onFormSubmit: ({ value, urgent }: IType) => void;
 }
 
+const handleEmptyField = (e: React.FormEvent<HTMLFormElement>) => {
+  e.currentTarget["todo-input"].classList.add("shake");
+};
+
 function Form(props: IProps) {
   const [urgent, setUrgent] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
+
+  const handleCorrectSubmission = (e: React.FormEvent<HTMLFormElement>) => {
+    props.onFormSubmit({ value, urgent });
+    e.currentTarget["todo-input"].classList.remove("shake");
+  };
 
   return (
     <div className="todo-form">
@@ -21,11 +30,12 @@ function Form(props: IProps) {
         onSubmit={(e) => {
           e.preventDefault();
           e.currentTarget["todo-input"].value != "" // validation
-            ? props.onFormSubmit({ value, urgent })
-            : null;
+            ? handleCorrectSubmission(e)
+            : handleEmptyField(e);
         }}
       >
         <input
+          className="input-field"
           type="text"
           placeholder="Type Todo here..."
           name="todo-input"
@@ -33,7 +43,7 @@ function Form(props: IProps) {
             setValue(e.currentTarget.value);
           }}
         />
-        <input type="submit" value={"Add Todo"} />
+        <input type="submit" value={"Add Todo"} name="submit" />
         <div>
           <label className="checkbox-wrapper">
             <input
