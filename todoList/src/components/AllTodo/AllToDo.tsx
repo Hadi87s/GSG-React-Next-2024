@@ -1,8 +1,9 @@
+import IType from "../../types/IType";
 import Item from "../TodoItem/Item";
 import "./alltodo.css";
 
 interface IProps {
-  tasks: string[];
+  tasks: IType[];
   onTrashClick: (key: number) => void;
   onCheckClick: (value: number) => void;
 }

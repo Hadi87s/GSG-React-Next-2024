@@ -1,9 +1,10 @@
 import { Trash2 } from "lucide-react";
 import "./item.css";
+import IType from "../../types/IType";
 
 interface IProps {
   index: number;
-  task: string;
+  task: IType;
   onTrashClick: (key: number) => void;
   onCheckClick: (value: number) => void;
 }
@@ -26,7 +27,9 @@ function Item(props: IProps) {
         />
         <span className="custom-checkbox"></span>
       </label>
-      <p>{props.task}</p>
+      <p style={{ color: props.task.urgent ? "orange" : "initial" }}>
+        {props.task.value}
+      </p>
       <button onClick={() => props.onTrashClick(props.index)}>
         <Trash2 />
       </button>

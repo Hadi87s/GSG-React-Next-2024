@@ -1,13 +1,18 @@
 import { useState } from "react";
 import "./form.css";
 
+interface IType {
+  value: string;
+  urgent: boolean;
+}
 interface IProps {
-  onFormSubmit: (value: string, urgent: boolean) => void;
+  onFormSubmit: ({ value, urgent }: IType) => void;
 }
 
 function Form(props: IProps) {
   const [urgent, setUrgent] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
+
   return (
     <div className="todo-form">
       {" "}
@@ -15,7 +20,9 @@ function Form(props: IProps) {
         action=""
         onSubmit={(e) => {
           e.preventDefault();
-          props.onFormSubmit(value, urgent);
+          e.currentTarget["todo-input"].value != "" // validation
+            ? props.onFormSubmit({ value, urgent })
+            : null;
         }}
       >
         <input
@@ -35,7 +42,6 @@ function Form(props: IProps) {
               id="urgent"
               onChange={() => {
                 setUrgent(!urgent);
-                console.log(urgent);
               }}
             />
             <div className="checkmark">
