@@ -5,8 +5,6 @@ interface IData {
   complete: number;
 }
 function Data(props: IData) {
-  console.log(props.taskCount);
-
   return (
     <div className="tasks">
       <div className="createdTasks">
