@@ -53,13 +53,13 @@ const Main = () => {
 
   const handleAbsentChange = (id: string, change: number) => {
     // setTotalAbsents(totalAbsents + change);
-    dispatch({type:"absentChange", payload: change});
+    dispatch({ type: "absentChange", payload: change });
     // setStudentsList(
     //   studentsList.map((std) =>
     //     std.id === id ? { ...std, absents: std.absents + change } : std
     //   )
     // );
-    dispatch({ type: "", payload: { id, change } });
+    dispatch({ type: "updateStudentAbsents", payload: { id, change } });
   };
 
   const handleAddStudent = (newStudent: IStudent) => {

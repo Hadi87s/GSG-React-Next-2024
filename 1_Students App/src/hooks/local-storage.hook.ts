@@ -18,7 +18,7 @@ const useLocalStorage = (state: any, storageKey: string) => {
   }, []);
 
   useEffect(() => {
-    if (typeof (state) === 'object') {
+    if (typeof state === "object") {
       localStorage.setItem(storageKey, JSON.stringify(state));
     } else {
       localStorage.setItem(storageKey, state.toString());
@@ -26,6 +26,6 @@ const useLocalStorage = (state: any, storageKey: string) => {
   }, [state, storageKey]);
 
   return { storedData };
-}
+};
 
 export default useLocalStorage;
