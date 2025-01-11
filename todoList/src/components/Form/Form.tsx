@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./form.css";
 
 interface IType {
@@ -14,6 +14,7 @@ const handleEmptyField = (e: React.FormEvent<HTMLFormElement>) => {
 };
 
 function Form(props: IProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [urgent, setUrgent] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
 
@@ -32,6 +33,9 @@ function Form(props: IProps) {
           e.currentTarget["todo-input"].value != "" // validation
             ? handleCorrectSubmission(e)
             : handleEmptyField(e);
+          if (inputRef.current) {
+            inputRef.current.value = "";
+          }
         }}
       >
         <input
@@ -39,6 +43,7 @@ function Form(props: IProps) {
           type="text"
           placeholder="Type Todo here..."
           name="todo-input"
+          ref={inputRef}
           onChange={(e) => {
             setValue(e.currentTarget.value);
           }}
