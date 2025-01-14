@@ -119,12 +119,6 @@ const Main = () => {
     ) {
       const min = parseInt(event.currentTarget["min"].value);
       const max = parseInt(event.currentTarget["max"].value);
-
-      // setFilteredList(
-      //   state.studentsList.filter((std) => {
-      //     return std.absents >= min && std.absents <= max;
-      //   })
-      // );
       params.set("min", min.toString());
       params.set("max", max.toString());
       setParams(params);
