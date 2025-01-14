@@ -5,6 +5,7 @@ import useLocalStorage from "../hooks/local-storage.hook";
 import { IStudent } from "../types";
 import { useSearchParams } from "react-router-dom";
 import reducer from "../hooks/reducer";
+import React from "react";
 
 const Main = () => {
   // const [studentsList, setStudentsList] = useState<IStudent[]>([]);
@@ -15,6 +16,7 @@ const Main = () => {
   const [filteredList, setFilteredList] = useState<IStudent[]>(
     state.studentsList
   );
+
   // const [totalAbsents, setTotalAbsents] = useState(0);
   const lastStdRef = useRef<HTMLDivElement>(null);
   const [params, setParams] = useSearchParams();
@@ -33,14 +35,23 @@ const Main = () => {
 
   useEffect(() => {
     const query = params.get("q") || "";
+    const coursesFilter = params.getAll("course");
     if (query) {
       setFilteredList(
         state.studentsList.filter((std) =>
           std.name.toLowerCase().includes(query.toLowerCase())
         )
       );
+      // dispatch({ type: "addQueryParameter", payload: query });
     } else {
       setFilteredList(state.studentsList);
+    }
+    if (coursesFilter.length) {
+      setFilteredList(
+        state.studentsList.filter((std) =>
+          coursesFilter.every((crs) => std.coursesList.includes(crs))
+        )
+      );
     }
   }, [params, state.studentsList]);
 
@@ -78,6 +89,35 @@ const Main = () => {
     params.set("q", query);
     setParams(params);
   };
+  const handleCheckedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const course = event.target.value;
+    const checked = event.target.checked;
+    if (checked) {
+      params.append("course", course);
+    } else {
+      params.delete("course", course);
+    }
+    setParams(params);
+  };
+  const COURSES_FILTER = ["Math", "HTML", "CSS", "OOP"];
+  let wrongInput = false;
+  const handleAbsentFilter = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (
+      event.currentTarget["min"].value !== "" ||
+      event.currentTarget["max"].value !== ""
+    ) {
+      const min = parseInt(event.currentTarget["min"].value);
+      const max = parseInt(event.currentTarget["max"].value);
+      setFilteredList(
+        state.studentsList.filter((std) => {
+          return std.absents >= min && std.absents <= max;
+        })
+      );
+    } else {
+      setFilteredList(state.studentsList);
+    }
+  };
 
   return (
     <>
@@ -96,6 +136,30 @@ const Main = () => {
           onChange={handleSearch}
           value={params.get("q") || ""}
         />
+        <div>
+          {COURSES_FILTER.map((course) => (
+            <React.Fragment key={course}>
+              <input
+                type="checkbox"
+                id={course}
+                value={course}
+                // checked= {params.getAll("courses").includes(course)}
+                onChange={handleCheckedChange}
+              />
+              <label htmlFor={course}>{course}</label>
+            </React.Fragment>
+          ))}
+        </div>
+        <form
+          action=""
+          style={{ width: "200px" }}
+          onSubmit={handleAbsentFilter}
+          className="minmax"
+        >
+          <input type="text" placeholder="min" name="min" />
+          <input type="text" placeholder="max" name="max" />
+          <input type="submit" />
+        </form>
       </div>
       {filteredList.map((student) => (
         <Student

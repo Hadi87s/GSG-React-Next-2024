@@ -39,3 +39,19 @@ nav {
   display: flex;
   column-gap: 10px;
 }
+
+.minmax{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.minmax input{
+  border-radius: 6px;
+
+}
+.minmax input[type="text"] {
+  width: 50px;
+  margin: 0 5px;
+  outline: none;  
+  border: 1px solid black;
+}

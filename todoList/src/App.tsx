@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Form from "./components/Form/Form";
 import Data from "./components/Data/Data";
@@ -9,6 +9,16 @@ function App() {
   const [tasks, addTask] = useState<IType[]>([]); //array of objects
   const [urgentTask, setUrgent] = useState<number>(0);
   const [complete, setComplete] = useState<number>(0);
+
+  useEffect(() => {
+    addTask(JSON.parse(localStorage.getItem("tasks") || ""));
+  }, []);
+
+  useEffect(() => {
+    if (tasks.length > 0) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  }, [tasks]);
 
   const handleFormSubmit = (object: IType) => {
     if (object.urgent) {
