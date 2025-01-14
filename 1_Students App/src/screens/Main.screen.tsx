@@ -20,8 +20,9 @@ const Main = () => {
   // const [totalAbsents, setTotalAbsents] = useState(0);
   const lastStdRef = useRef<HTMLDivElement>(null);
   const [params, setParams] = useSearchParams();
-
+  const COURSES_FILTER = ["Math", "HTML", "CSS", "OOP"];
   const { storedData } = useLocalStorage(state.studentsList, "students-list");
+
   useEffect(() => {
     const stdList: IStudent[] = storedData || [];
     const totalAbs = stdList.reduce((prev, cur) => {
@@ -36,6 +37,9 @@ const Main = () => {
   useEffect(() => {
     const query = params.get("q") || "";
     const coursesFilter = params.getAll("course");
+    const min = Number(params.get("min"));
+    const max = Number(params.get("max"));
+
     if (query) {
       setFilteredList(
         state.studentsList.filter((std) =>
@@ -48,9 +52,16 @@ const Main = () => {
     }
     if (coursesFilter.length) {
       setFilteredList(
-        state.studentsList.filter((std) =>
+        filteredList.filter((std) =>
           coursesFilter.every((crs) => std.coursesList.includes(crs))
         )
+      );
+    }
+    if (min && max) {
+      setFilteredList(
+        filteredList.filter((std) => {
+          return std.absents >= min && std.absents <= max;
+        })
       );
     }
   }, [params, state.studentsList]);
@@ -99,8 +110,7 @@ const Main = () => {
     }
     setParams(params);
   };
-  const COURSES_FILTER = ["Math", "HTML", "CSS", "OOP"];
-  let wrongInput = false;
+
   const handleAbsentFilter = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
@@ -109,11 +119,15 @@ const Main = () => {
     ) {
       const min = parseInt(event.currentTarget["min"].value);
       const max = parseInt(event.currentTarget["max"].value);
-      setFilteredList(
-        state.studentsList.filter((std) => {
-          return std.absents >= min && std.absents <= max;
-        })
-      );
+
+      // setFilteredList(
+      //   state.studentsList.filter((std) => {
+      //     return std.absents >= min && std.absents <= max;
+      //   })
+      // );
+      params.set("min", min.toString());
+      params.set("max", max.toString());
+      setParams(params);
     } else {
       setFilteredList(state.studentsList);
     }
