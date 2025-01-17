@@ -56,6 +56,8 @@ const Main = () => {
           coursesFilter.every((crs) => std.coursesList.includes(crs))
         )
       );
+    } else {
+      setFilteredList(state.studentsList);
     }
     if (min && max) {
       setFilteredList(
@@ -63,6 +65,8 @@ const Main = () => {
           return std.absents >= min && std.absents <= max;
         })
       );
+    } else {
+      setFilteredList(state.studentsList);
     }
   }, [params, state.studentsList]);
 
